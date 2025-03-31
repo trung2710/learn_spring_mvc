@@ -16,4 +16,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findTop1ById(long n);
 
     void deleteById(long id);
+
+    
 }
