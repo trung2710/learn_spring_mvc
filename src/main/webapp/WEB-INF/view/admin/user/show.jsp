@@ -5,47 +5,80 @@
             <html lang="en">
 
             <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Detail User ${id}</title>
-                <!-- Latest compiled and minified CSS -->
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-                <!-- Latest compiled JavaScript -->
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                <style>
-                    * {
-                        margin: 0px;
-                        border: 0;
-                        box-sizing: border-box;
-                    }
-                </style>
+                <meta charset="utf-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+                <meta name="description" content="" />
+                <meta name="author" content="" />
+                <title>List User</title>
+                <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+                <link href="/css/styles.css" rel="stylesheet" />
+                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
-            <body>
-                <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-12 mx-auto">
-                            <div class="d-flex justify-content-between">
-                                <h3>Detail User with id=${id}</h3>
-                            </div>
-                            <hr>
-                            <div class="card" style="width: 60%;">
-                                <div class="card-header">
-                                    User Infomation
+            <body class="sb-nav-fixed">
+                <jsp:include page="../layout/header.jsp" />
+                <div id="layoutSidenav">
+                    <jsp:include page="../layout/sidebar.jsp" />
+                    <div id="layoutSidenav_content">
+                        <main>
+                            <div class="container-fluid px-4">
+                                <h1 class="mt-4">Manage Orders</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Orders</li>
+                                </ol>
+                                <div class="container mt-5">
+                                    <div class="row">
+                                        <div class="col-12 mx-auto">
+                                            <div class="d-flex justify-content-between">
+                                                <h3>Table Users</h3>
+                                                <a href="/admin/user/create" class="btn btn-primary">Create User</a>
+                                            </div>
+                                            <hr>
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Email</th>
+                                                        <th>Full Name</th>
+                                                        <th>Role</th>
+                                                        <th>Action</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach var="user" items="${users1}">
+                                                        <tr>
+                                                            <th>${user.id}</th>
+                                                            <td>${user.email}</td>
+                                                            <td>${user.fullName}</td>
+                                                            <td>${user.role.name}</td>
+                                                            <td>
+                                                                <a class="btn btn-success"
+                                                                    href="/admin/user/${user.id}">View</a>
+                                                                <a class="btn btn-warning"
+                                                                    href="/admin/user/update/${user.id}">Update</a>
+                                                                <a class="btn btn-danger"
+                                                                    href="/admin/user/delete/${user.id}">Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">ID: ${person.id}</li>
-                                    <li class="list-group-item">Email: ${person.email}</li>
-                                    <li class="list-group-item">Fullname: ${person.fullName}</li>
-                                    <li class="list-group-item">Address: ${person.address}</li>
-                                    <li class="list-group-item">Phone: ${person.phone}</li>
-                                </ul>
                             </div>
-                            <a href="/admin/user" class="btn btn-success mt-5">Back</a>
-                        </div>
+                        </main>
+                        <jsp:include page="../layout/footer.jsp" />
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+                    crossorigin="anonymous"></script>
+                <script src="/js/scripts.js"></script>
+
             </body>
 
             </html>

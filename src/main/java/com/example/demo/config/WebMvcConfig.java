@@ -30,8 +30,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
   // cấu hình đường dẫn của thư mục.
+  //giúp ánh xạ tài nguyên tĩnh.
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    //khai báo các tài nguyên tĩnh./css/** → Định nghĩa một URL Pattern, 
+    //tức là tất cả các file có đường dẫn bắt đầu bằng /css/ sẽ được xử lý theo quy tắc này.
+    //resources/css/ → Chỉ định thư mục thực tế chứa các tệp CSS.
   registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
+  registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+  registry.addResourceHandler("/images/**").addResourceLocations("/resources/images/");
+  registry.addResourceHandler("/client/**").addResourceLocations("/resources/client/");
  }
 }
