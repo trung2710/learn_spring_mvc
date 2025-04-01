@@ -48,10 +48,12 @@
                     <!-- Single Product Start -->
                     <div class="container-fluid py-5" style="margin-top: 152px;">
                         <div class="container">
-                            <ol class="breadcrumb mb-4">
-                                <li class="breadcrumb-item"><a href="/homepage">Home</a></li>
-                                <li class="breadcrumb-item active">Chi tiết sản phẩm</li>
-                            </ol>
+                            <div>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/homepage">Home</a></li>
+                                    <li class="breadcrumb-item active">Chi tiết sản phẩm</li>
+                                </ol>
+                            </div>
                             <div class="row g-4 mb-5">
                                 <div class="col-lg-8 col-xl-9">
                                     <div class="row g-4">

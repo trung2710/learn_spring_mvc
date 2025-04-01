@@ -14,6 +14,23 @@
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        const avatarImage = "${newUser.avatar}";
+                        if (avatarImage) {
+                            const imgURL = "/images/avatar/" + avatarImage;
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        }
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
             </head>
 
             <body class="sb-nav-fixed">
@@ -35,16 +52,21 @@
                                             <hr>
                                             <div class="form-user">
                                                 <form:form method="post" action="/admin/user/update"
-                                                    modelAttribute="newUser">
+                                                    modelAttribute="newUser" enctype="multipart/form-data">
 
                                                     <div class="mb-3" style="display: none;">
                                                         <label class="form-label">ID</label>
                                                         <form:input type="text" class="form-control" path="id" />
                                                     </div>
+                                                    <div class="mb-3" style="display: none;">
+                                                        <label class="form-label">Pasword</label>
+                                                        <form:input type="password" class="form-control"
+                                                            path="password" />
+                                                    </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Email address</label>
                                                         <form:input type="email" class="form-control" path="email"
-                                                            disabled="true" />
+                                                            readonly="true" />
                                                         <div id="emailHelp" class="form-text">We'll never share your
                                                             email with anyone
                                                             else.
@@ -82,6 +104,17 @@
                                                             <form:option value="ADMIN">ADMIN</form:option>
                                                             <form:option value="USER">USER</form:option>
                                                         </form:select>
+                                                    </div>
+                                                    <div class="mb-3 col-12 col-md-6">
+                                                        <label for="avatarFile" class="form-label">Avatar</label>
+                                                        <!-- khong dung thuoc tinh path, vi trong user ko co
+                                                    thuoc tinh co kieu du lieu la file -->
+                                                        <input type="file" class="form-control" id="avatarFile"
+                                                            accept=".png, .jpg, .jpeg" name="avatarfile" />
+                                                    </div>
+                                                    <div class="mb-3 col-12">
+                                                        <img style="max-height: 250px; display: none;"
+                                                            alt="avatar preview" id="avatarPreview" />
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <button type="submit" class="btn btn-warning"

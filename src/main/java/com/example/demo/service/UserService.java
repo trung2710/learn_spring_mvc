@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Role;
 import com.example.demo.domain.User;
+import com.example.demo.domain.dto.RegisterDto;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 
@@ -48,4 +49,17 @@ public class UserService {
     public Role getRoleByName(String name){
         return this.roleRepository.findByName(name);
     }
+
+    public User changeRegisterDtoToUser(RegisterDto res){
+        User user=new User();
+        user.setFullName(res.getFirstName()+" "+res.getLastName());
+        user.setEmail(res.getEmail());
+        user.setPassword(res.getPassword());
+        return user;
+    }
+
+    public boolean checkEmailExist(String email){
+        return this.userRepository.existsByEmail(email);
+    }
+
 }

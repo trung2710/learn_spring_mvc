@@ -21,19 +21,21 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     // @NotEmpty(message = "Email cannot be empty")
     private String email;   
 
     @NotNull
     @Size(min=3, message="Password phai co toi thieu 3 ki tu")
+    // @StrongPassword(message="password phai co 8 ki tu")
     private String password;
     @NotNull
     @Size(min=3, message="fullname phai cho it nhat 3 ki tu")
     private String fullName;
     private String address;
-    @NotNull(message="vui long nhap so dien thoai")
-    @Size(min=7, message="Vui long nhap day du so dien thoai")
+    // @NotNull(message="vui long nhap so dien thoai")
+    // @Size(min=7, message="Vui long nhap day du so dien thoai")
     private String phone;
     private String avatar;
     

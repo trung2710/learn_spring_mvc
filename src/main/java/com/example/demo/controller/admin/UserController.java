@@ -105,15 +105,35 @@ public class UserController{
     } 
 
     @PostMapping("/admin/user/update")
-    public String postUpdateUser(Model model, @ModelAttribute("newUser") User person){
+    public String postUpdateUser(Model model,
+    @ModelAttribute("newUser") @Valid User person,
+    BindingResult newUserBindingResult,
+    @RequestParam("avatarfile") MultipartFile file) {
+
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors ) {
+            System.out.println (">>>"+error.getField() + " - " + error.getDefaultMessage());
+        } 
+
+        //validate
+        if(newUserBindingResult.hasErrors()){
+            return "/admin/user/update";
+        }
+
         User currentUser=this.userServise.findUserById(person.getId());
         if(currentUser!=null){
+            //update new avatar
+            if(!file.isEmpty()){
+                String avatarName=this.uploadService.handleSaveUploadFile(file, "avatar");
+                currentUser.setAvatar(avatarName);
+            }
+
             currentUser.setAddress(person.getAddress());
             currentUser.setFullName(person.getFullName());
             currentUser.setPhone(person.getPhone());
             currentUser.setRole(this.userServise.getRoleByName(person.getRole().getName()));
+            this.userServise.saveUser(currentUser);
         }
-        this.userServise.saveUser(currentUser);
         return "redirect:/admin/user";
     }  
 
