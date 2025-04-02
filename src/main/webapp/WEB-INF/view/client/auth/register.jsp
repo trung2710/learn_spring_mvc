@@ -29,12 +29,18 @@
                                             <div class="card-body">
                                                 <form:form method="post" action="/register"
                                                     modelAttribute="registerUser">
+                                                    <c:set var="errorFirstnName">
+                                                        <form:errors path="firstName" cssClass="invalid-feedback" />
+                                                    </c:set>
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <div class="form-floating mb-3 mb-md-0">
-                                                                <form:input class="form-control" path="firstName"
-                                                                    type="text" placeholder="Enter your first name" />
+                                                                <form:input
+                                                                    class="form-control ${not empty errorFirstnName ? 'is-invalid' : ''}"
+                                                                    path="firstName" type="text"
+                                                                    placeholder="Enter your first name" />
                                                                 <label for="firstName">First name</label>
+                                                                ${errorFirstnName}
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -90,7 +96,7 @@
                                                 </form:form>
                                             </div>
                                             <div class="card-footer text-center py-3">
-                                                <div class="small"><a href="/">Have an account? Go to login</a>
+                                                <div class="small"><a href="/login">Have an account? Go to login</a>
                                                 </div>
                                             </div>
                                         </div>

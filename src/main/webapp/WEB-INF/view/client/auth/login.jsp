@@ -38,22 +38,24 @@
                                                             placeholder="Password" />
                                                         <label for="inputPassword">Password</label>
                                                     </div>
-                                                    <div class="form-check mb-3">
+                                                    <!-- <div class="form-check mb-3">
                                                         <input class="form-check-input" id="inputRememberPassword"
                                                             type="checkbox" value="" />
                                                         <label class="form-check-label"
                                                             for="inputRememberPassword">Remember
                                                             Password</label>
-                                                    </div>
-                                                    <div
-                                                        class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                        <a class="small" href="password.html">Forgot Password?</a>
-                                                        <a class="btn btn-primary" href="index.html">Login</a>
+                                                    </div> -->
+                                                    <div class="mt-4 mb-0">
+                                                        <div class="d-gird text-center"
+                                                            style="width: 100%; display: block;">
+                                                            <button class="btn btn-primary btn-block" type="submit"
+                                                                autofocus>Login</button>
+                                                        </div>
                                                     </div>
                                                 </form:form>
                                             </div>
                                             <div class="card-footer text-center py-3">
-                                                <div class="small"><a href="register.html">Need an account? Sign up!</a>
+                                                <div class="small"><a href="/register">Need an account? Sign up!</a>
                                                 </div>
                                             </div>
                                         </div>
