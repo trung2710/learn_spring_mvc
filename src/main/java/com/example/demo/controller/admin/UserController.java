@@ -83,7 +83,7 @@ public class UserController{
         } 
 
         if(newUserBindingResult.hasErrors()){
-            return "/admin/user/create";
+            return "admin/user/create";
         }
         //validate
         String avatarName=this.uploadService.handleSaveUploadFile(file, "avatar");
@@ -117,7 +117,7 @@ public class UserController{
 
         //validate
         if(newUserBindingResult.hasErrors()){
-            return "/admin/user/update";
+            return "admin/user/update";
         }
 
         User currentUser=this.userServise.findUserById(person.getId());

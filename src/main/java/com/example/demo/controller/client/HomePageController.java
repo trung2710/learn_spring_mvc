@@ -22,6 +22,7 @@ import jakarta.validation.Valid;
 
 
 
+
 @Controller
 public class HomePageController {
     private final ProductService productService;
@@ -46,11 +47,11 @@ public class HomePageController {
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerUser", new RegisterDto());
-        return "/client/auth/register";
+        return "client/auth/register";
     }
     @GetMapping("/login")
     public String getLoginPage(Model model) {
-        return "/client/auth/login";
+        return "client/auth/login";
     }
 
     @PostMapping("/register")
@@ -63,7 +64,7 @@ public class HomePageController {
         }
 
         if(bindingResult.hasErrors()){
-            return "/client/auth/register";
+            return "client/auth/register";
         }
 
         User user=this.userService.changeRegisterDtoToUser(res);
@@ -76,6 +77,10 @@ public class HomePageController {
         return "redirect:/login";
     }   
     
-
+    @GetMapping("/access-deny")
+    public String getAccessDenyPage() {
+        return "client/auth/access_deny";
+    }
+    
     
 }

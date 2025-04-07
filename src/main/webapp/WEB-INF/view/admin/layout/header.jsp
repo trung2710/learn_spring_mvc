@@ -16,7 +16,7 @@
                     class="fas fa-search"></i></button> -->
                         <p style="color: white;font-size: 20px;line-height: 40px;text-align: center;">
                             Welcome to
-                            admin</p>
+                            Admin Page</p>
                     </div>
                 </form>
                 <!-- Navbar-->
@@ -25,12 +25,26 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
+                                <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
+                                    src="" />
+                                <div class="text-center my-3">
+                                    <c:out value="${pageContext.request.userPrincipal.name}" />
+                                </div>
+                            </li>
                             <li><a class="dropdown-item" href="#!">Settings</a></li>
                             <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">Logout</a></li>
+                            <li>
+                                <div>
+                                    <form method="post" action="/logout">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                        <button class="dropdown-item">Đăng xuất</button>
+                                    </form>
+                                </div>
+                            </li>
                         </ul>
                     </li>
                 </ul>

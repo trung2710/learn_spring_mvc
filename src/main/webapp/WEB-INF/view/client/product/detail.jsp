@@ -59,7 +59,7 @@
                                     <div class="row g-4">
                                         <div class="col-lg-6">
                                             <div class="border rounded">
-                                                <a href="#">
+                                                <a href="/images/product/${item.image}">
                                                     <img src="/images/product/${item.image}" class="img-fluid rounded"
                                                         alt="Image">
                                                 </a>

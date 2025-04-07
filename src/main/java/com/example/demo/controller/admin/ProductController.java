@@ -46,14 +46,14 @@ public class ProductController {
         Product pro=this.productService.findProductById(id).get();
         model.addAttribute("id", id);
         model.addAttribute("item", pro);
-        return "/admin/product/detail";
+        return "admin/product/detail";
     }
     
 
     @GetMapping("/admin/product/create")
     public String getCreateAProduct(Model model) {
         model.addAttribute("newProduct", new Product());
-        return "/admin/product/create";
+        return "admin/product/create";
     }
     
     @PostMapping("/admin/product/create")
@@ -63,7 +63,7 @@ public class ProductController {
     ) {
         //validate
         if(newProductBindingResult.hasErrors()){
-            return "/admin/product/create";
+            return "admin/product/create";
         }
 
         //upload file
@@ -80,7 +80,7 @@ public class ProductController {
         pro.setId(id);
         model.addAttribute("id",id);
         model.addAttribute("newProduct", pro);
-        return "/admin/product/delete";
+        return "admin/product/delete";
     }
 
     @PostMapping("/admin/product/delete")
@@ -93,7 +93,7 @@ public class ProductController {
     public String getUpdateProductpage(Model model, @PathVariable long id) {
         Product sp=this.productService.findProductById(id).get();
         model.addAttribute("newProduct", sp);
-        return "/admin/product/update";
+        return "admin/product/update";
     }
     
 
@@ -104,7 +104,7 @@ public class ProductController {
         @RequestParam("imagefile") MultipartFile file) {
 
         if(newProductBindingResult.hasErrors()){
-            return "/admin/product/update";
+            return "admin/product/update";
         }
         Product currentProduct=this.productService.findProductById(product.getId()).get();
         if(currentProduct!=null){
