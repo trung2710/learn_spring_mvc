@@ -65,7 +65,7 @@ public class SecurityConfiguration {
                         //cac duong link url cho phep nguoi dung truy cap,
                         // neu khong khai bao se khong the su dung
 
-                        .requestMatchers("/register","/homepage","/login",
+                        .requestMatchers("/forgot-password","/reset-password","/register","/homepage","/login",
                          "/client/**", "/css/**", "/js/**",
                         "/images/**").permitAll()
                         //tat ca cac request deu phai xac thuc.

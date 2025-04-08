@@ -13,6 +13,27 @@
                 <title>Login Account</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <style>
+                    /* CSS để căn chỉnh biểu tượng mắt */
+                    .password-container {
+                        position: relative;
+                    }
+
+                    .password-container .form-control {
+                        padding-right: 40px;
+                        /* Để lại không gian cho biểu tượng */
+                    }
+
+                    .password-container .toggle-password {
+                        position: absolute;
+                        top: 50%;
+                        right: 10px;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                        z-index: 10;
+                        /* Đảm bảo biểu tượng nằm trên input */
+                    }
+                </style>
             </head>
 
             <body class="bg-primary">
@@ -27,6 +48,9 @@
                                                 <h3 class="text-center font-weight-light my-4">Login</h3>
                                             </div>
                                             <div class="card-body">
+                                                <c:if test="${not empty message}">
+                                                    <div class="my-2" style="color: green;">${message}</div>
+                                                </c:if>
                                                 <form method="post" action="/login">
                                                     <c:if test="${param.error != null}">
                                                         <div class="my-2" style="color: red;">Invalid email or password.
@@ -41,11 +65,25 @@
                                                             placeholder="name@example.com" name="username" />
                                                         <label for="inputEmail">Email address</label>
                                                     </div>
-                                                    <div class="form-floating mb-3">
+                                                    <div class="form-floating mb-3 password-container">
                                                         <input class="form-control" id="inputPassword" type="password"
                                                             placeholder="Password" name="password" />
                                                         <label for="inputPassword">Password</label>
                                                     </div>
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" id="showPassword"
+                                                            type="checkbox" />
+                                                        <label class="form-check-label" for="showPassword">Show
+                                                            Password</label>
+                                                    </div>
+
+                                                    <!-- <div class="form-check mb-3">
+                                                        <input class="form-check-input" id="inputRememberPassword"
+                                                            type="checkbox" value="" />
+                                                        <label class="form-check-label"
+                                                            for="inputRememberPassword">Remember
+                                                            Password</label>
+                                                    </div> -->
                                                     <div>
                                                         <input type="hidden" name="${_csrf.parameterName}"
                                                             value="${_csrf.token}" />
@@ -62,6 +100,7 @@
                                             <div class="card-footer text-center py-3">
                                                 <div class="small"><a href="/register">Need an account? Sign up!</a>
                                                 </div>
+                                                <div class="small"><a href="/forgot-password">Forgot Password?</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -87,6 +126,16 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
                 <script src="/js/scripts.js"></script>
+                <script>
+                    document.getElementById('showPassword').addEventListener('change', function () {
+                        var passwordInput = document.getElementById('inputPassword');
+                        if (this.checked) {
+                            passwordInput.type = 'text'; // Hiện mật khẩu
+                        } else {
+                            passwordInput.type = 'password'; // Ẩn mật khẩu
+                        }
+                    });
+                </script>
             </body>
 
             </html>

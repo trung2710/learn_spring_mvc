@@ -38,7 +38,16 @@ public class User {
     // @Size(min=7, message="Vui long nhap day du so dien thoai")
     private String phone;
     private String avatar;
+    private String resetPasswordToken;
     
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
     //role_id
     //nhiều user có cùng 1 vai trò(role)
     @ManyToOne

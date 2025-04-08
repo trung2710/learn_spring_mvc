@@ -66,4 +66,8 @@ public class UserService {
         return this.userRepository.findTop1ByEmail(email);
     }
 
+    public User getUserByPasswordToken(String token){
+        return this.userRepository.findByResetPasswordToken(token);
+    }
+
 }
