@@ -5,12 +5,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import com.example.demo.service.CustomUserDetailsService;
 import com.example.demo.service.UserService;
@@ -50,6 +52,19 @@ public class SecurityConfiguration {
         return new CustomLogoutSucessHandler();
     }
 
+    //cau hinh moi phien dang nhap keo dai 30 ngay
+    //sau 30 ngay thi se bi xoa di.
+    //cau hinh Remember Me
+    //Su dung remember me + session tu dong gia han thoi gian het han vao trong database
+    @Bean
+    public SpringSessionRememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices =
+        new SpringSessionRememberMeServices();
+        // optionally customize
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
+    } 
+
     //hàm này bắt có ở video 117.
     //1 là để custom form login, 2 là để 
      @Bean
@@ -73,6 +88,23 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated())
+                
+                .sessionManagement((sessionManagement) -> sessionManagement
+                        // luon tao session moi
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        //het han session thi tu dong logout
+                        .invalidSessionUrl("/logout?expired")
+                        //Muon cho phep tai 1 thoi diem co bn thiet bi duoc login cung tai khoan
+                        .maximumSessions(1)
+                        //false: nguoi thu 2 login se da nguoi thu nhat ra
+                        //true: nguoi thu 2 login vao thoi khoan se phair cho nguoi t1 logout.
+                        .maxSessionsPreventsLogin(false))
+                
+                //moi lan logout thi xoa cai cookies di. Va bao hieu cho server session het han
+                .logout(logout->logout.deleteCookies("JSESSIONID").invalidateHttpSession(true)) 
+                       
+                .rememberMe(remember -> remember
+                        .rememberMeServices(rememberMeServices()))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login?error")
@@ -88,7 +120,7 @@ public class SecurityConfiguration {
                         .logoutSuccessHandler(logoutSuccessHandler())
                         .permitAll()   
                 )
-                ;   
+                ; 
                 
         return http.build();        
     } 
