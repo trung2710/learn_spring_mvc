@@ -69,7 +69,7 @@
                                             <h4 class="fw-bold mb-3">${item.name}</h4>
                                             <p class="mb-3">Hãng: ${item.factory}</p>
                                             <h5 class="fw-bold mb-3">
-                                                <fmt:formatNumber type="number" value="${item.price}" />
+                                                <fmt:formatNumber type="number" value="${item.price}" /> đ
                                             </h5>
                                             <div class="d-flex mb-4">
                                                 <i class="fa fa-star text-secondary"></i>
@@ -93,28 +93,14 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <script>
-                                                document.addEventListener("DOMContentLoaded", function () {
-                                                    const minusButton = document.querySelector(".btn-minus");
-                                                    const plusButton = document.querySelector(".btn-plus");
-                                                    const inputField = document.querySelector(".form-control");
-
-                                                    minusButton.addEventListener("click", function () {
-                                                        let currentValue = parseInt(inputField.value);
-                                                        if (currentValue > 1) {
-                                                            inputField.value = currentValue - 1;
-                                                        }
-                                                    });
-
-                                                    plusButton.addEventListener("click", function () {
-                                                        let currentValue = parseInt(inputField.value);
-                                                        if (currentValue <= parseInt("${item.quantity}")) inputField.value = currentValue + 1;
-                                                    });
-                                                });
-                                            </script>
-                                            <a href="#"
-                                                class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                            <form action="/add-product-to-cart/${item.id}" method="post">
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                    value="${_csrf.token}" />
+                                                <button type="submit"
+                                                    class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</button>
+                                            </form>
                                         </div>
                                         <div class="col-lg-12">
                                             <nav>

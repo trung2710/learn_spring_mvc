@@ -129,7 +129,7 @@ public class UserController{
             }
 
             currentUser.setAddress(person.getAddress());
-            currentUser.setFullName(person.getFullName());
+            currentUser.setAddress(person.getFullName());
             currentUser.setPhone(person.getPhone());
             currentUser.setRole(this.userServise.getRoleByName(person.getRole().getName()));
             this.userServise.saveUser(currentUser);

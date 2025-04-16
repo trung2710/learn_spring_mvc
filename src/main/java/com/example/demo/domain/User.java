@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -53,9 +55,13 @@ public class User {
     @ManyToOne
     @JoinColumn(name="role_id")
     private Role role;
-
-    @OneToMany(mappedBy = "person")
+//cascade = CascadeType.ALL: Khi xóa User, tất cả Order và Cart liên quan sẽ tự động bị xóa.
+//orphanRemoval = true: Đảm bảo rằng nếu một Order hoặc Cart không còn tham chiếu đến User, nó sẽ bị xóa.
+    @OneToMany(mappedBy = "person",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
+
+    @OneToOne(mappedBy="user",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cart cart;
 
     public long getId() {
         return id;
@@ -133,5 +139,13 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

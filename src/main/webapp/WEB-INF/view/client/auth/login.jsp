@@ -47,7 +47,7 @@
                                             <div class="card-header">
                                                 <h3 class="text-center font-weight-light my-4">Login</h3>
                                             </div>
-                                            <div class="card-body">
+                                            <div class="card-body " style="display: flex; flex-direction: column;">
                                                 <c:if test="${not empty message}">
                                                     <div class="my-2" style="color: green;">${message}</div>
                                                 </c:if>
@@ -92,10 +92,15 @@
                                                         <div class="d-gird text-center"
                                                             style="width: 100%; display: block;">
                                                             <button class="btn btn-primary btn-block" type="submit"
+                                                                style="display: block; width: 100%;"
                                                                 autofocus>Login</button>
                                                         </div>
                                                     </div>
                                                 </form>
+                                                <a href="/oauth2/authorization/google"
+                                                    class="btn btn-primary justify-centent-center"
+                                                    style="display: inline-block; margin-top: 20px;">
+                                                    Đăng nhập bằng Google</a>
                                             </div>
                                             <div class="card-footer text-center py-3">
                                                 <div class="small"><a href="/register">Need an account? Sign up!</a>

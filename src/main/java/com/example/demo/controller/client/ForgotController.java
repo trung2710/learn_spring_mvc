@@ -5,7 +5,9 @@ import java.util.UUID;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,7 @@ import com.example.demo.domain.dto.ResetPasswordDto;
 import com.example.demo.service.UserService;
 
 import jakarta.validation.Valid;
+
 
 
 
@@ -123,9 +126,31 @@ public class ForgotController {
         return "redirect:/login";
     }
     
+    //logic xu lí tao ngươi dung moi khi dang nhap bang tai khoan google
+    //vao 1 trang web, mà người đó chưa truy cập bao h hoặc chưa có tài khoản 
+    //lưu trong web
+    @GetMapping("/set-password")
+    public String getMethodName(Model model, Authentication authentication) {
+       
+        model.addAttribute("newResetPassword", new ResetPasswordDto());
+        return "client/auth/google-password";
+    }
     
+    @PostMapping("/set-password")
+    public String postMethodName(@ModelAttribute("newResetPassword") @Valid ResetPasswordDto pass,
+    BindingResult bindingResult,
+    Authentication authentication) {
+        OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+        String email = oauth2User.getAttribute("email");
+        User user = userService.getUserByEmail1(email);
+        String hashPassword=this.passwordEncoder.encode(pass.getResetPassword());
+        user.setPassword(hashPassword);
+        this.userService.saveUser(user);
 
-
-
+       
+        if(user.getRole().getName().equals("USER")) return "redirect:/homepage";
+        else return "redirect:/admin";
+    }
+    
 
 }

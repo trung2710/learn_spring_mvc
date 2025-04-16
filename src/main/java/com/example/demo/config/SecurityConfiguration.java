@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
+import com.example.demo.service.CustomOAuth2UserService;
 import com.example.demo.service.CustomUserDetailsService;
 import com.example.demo.service.UserService;
 
@@ -64,6 +65,11 @@ public class SecurityConfiguration {
         rememberMeServices.setAlwaysRemember(true);
         return rememberMeServices;
     } 
+    //Tùy chỉnh xử lý thông tin người dùng Google (tuỳ chọn)
+    @Bean
+    public CustomOAuth2UserService customOAuth2UserService() {
+        return new CustomOAuth2UserService();
+    }
 
     //hàm này bắt có ở video 117.
     //1 là để custom form login, 2 là để 
@@ -82,12 +88,25 @@ public class SecurityConfiguration {
 
                         .requestMatchers("/forgot-password","/reset-password","/register","/homepage","/login",
                          "/client/**", "/css/**", "/js/**",
-                        "/images/**").permitAll()
+                        "/images/**","/product/**","/set-password").permitAll()
                         //tat ca cac request deu phai xac thuc.
 
                         .requestMatchers("/admin/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated())
+                // cau hinh de dang nhap bang tai khoan google
+                .oauth2Login(oauth2->oauth2
+                    .loginPage("/login")
+                    .failureUrl("/login?error")
+                    // Cấu hình phần lấy thông tin người dùng từ provider (Google, Facebook…).
+                    // customOAuth2UserService() là nơi bạn xử lý thông tin user trả về từ Google (như email, tên, ảnh…).
+                    .userInfoEndpoint(userInfo -> userInfo
+                        .userService(customOAuth2UserService()) // Nếu bạn muốn tùy chỉnh xử lý thông tin người dùng
+                    )
+                    .successHandler(customSuccessHandler())
+                    .permitAll()    
+                    
+                )
                 
                 .sessionManagement((sessionManagement) -> sessionManagement
                         // luon tao session moi
