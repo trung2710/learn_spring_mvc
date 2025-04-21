@@ -67,7 +67,7 @@
                                                 </div>
                                             </li>
                                             <li><a class="dropdown-item" href="#">Quản ly tai khoản</a></li>
-                                            <li><a class="dropdown-item" href="#">Lịch sử mua hang</a></li>
+                                            <li><a class="dropdown-item" href="/order-history">Lịch sử mua hang</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>

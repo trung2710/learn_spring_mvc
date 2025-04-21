@@ -79,23 +79,28 @@
                                                 <i class="fa fa-star"></i>
                                             </div>
                                             <p class="mb-4">${item.shortDesc}</p>
-                                            <div class="input-group quantity mb-5" style="width: 100px;">
+                                            <div class="input-group quantity mt-4 mb-4" style="width: 100px;">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-sm btn-minus rounded-circle bg-light border">
                                                         <i class="fa fa-minus"></i>
                                                     </button>
                                                 </div>
                                                 <input type="text"
-                                                    class="form-control form-control-sm text-center border-0" value="1">
+                                                    class="form-control form-control-sm text-center border-0" value="1"
+                                                    data-cart-detail-index="0" />
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <form action="/add-product-to-cart/${item.id}" method="post">
+                                            <form action="/add-product-to-cart-from-view-detail" method="post">
                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                     value="${_csrf.token}" />
+                                                <input class="form-control d-none" type="text" value="${item.id}"
+                                                    name="id" />
+                                                <input class="form-control d-none" type="text" name="quantity" value="1"
+                                                    id="cartDetails0.quantity" />
                                                 <button type="submit"
                                                     class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                                         class="fa fa-shopping-bag me-2 text-primary"></i> Add to
@@ -499,6 +504,16 @@
                     <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
                             class="fa fa-arrow-up"></i></a>
 
+                    <!-- JavaScript Libraries -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+                    <script src="/client/lib/easing/easing.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+                    <script src="/client/lib/waypoints/waypoints.min.js"></script>
+                    <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+                    <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+
+                    <!-- Template Javascript -->
+                    <script src="/client/js/main.js"></script>
                 </body>
 
                 </html>
